@@ -1,0 +1,38 @@
+<div class="submit-form">
+  <div *ngIf="!submitted">
+    <div class="form-group">
+      <label for="title">Nombre del Curso</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        required
+        [(ngModel)]="curso.nombre"
+        name="title"
+        placeholder="Ingrese el nombre del curso"
+      />
+    </div>
+    <div class="form-group">
+      <label for="content">Fecha de Inicio del Curso</label>
+      <input
+        type="date"
+        class="form-control"
+        id="content"
+        required
+        [(ngModel)]="curso.fechaInicio"
+        name="content"
+      />
+    </div>
+	<div class="form-group">
+	  <label for="tema">Tema del Curso</label>
+	  <select class="form-control" id="tema" [(ngModel)]="curso.tema" name="tema">
+	    <option *ngFor="let tema of temasCursos" [value]="tema">{{tema.nombre}}</option>
+	  </select>
+	</div>
+   <button (click)="saveCurso()" class="btn btn-success">Aceptar</button>
+  </div>
+  	<div *ngIf="submitted">
+    <h4>Curso fue enviado exitosamente.</h4>
+    	<button class="btn btn-success" (click)="newCurso()">Agregar</button>
+  </div>
+</div>
