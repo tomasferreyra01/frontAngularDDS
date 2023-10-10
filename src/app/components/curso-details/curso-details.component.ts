@@ -4,6 +4,8 @@ import { CursoService } from 'src/app/services/curso.service';
 import { Curso } from 'src/app/models/curso.model';
 import { Tema } from 'src/app/models/tema.model';
 import * as bootstrap from 'bootstrap';
+import { Material } from 'src/app/models/material.model'
+import { MaterialService } from 'src/app/services/material.service';
 
 @Component({
   selector: 'app-curso-details',
@@ -18,6 +20,7 @@ export class CursoDetailsComponent implements OnInit {
     content: ''
   };
   temasCursos: any[] = [];
+  materiales?: Material[];
 
   message = '';
   showToastFlag: boolean = false;
@@ -25,9 +28,11 @@ export class CursoDetailsComponent implements OnInit {
   constructor(
     private cursoService: CursoService,
     private route: ActivatedRoute,
-    private router: Router) { }
+    private router: Router,
+    private materialService: MaterialService,) { }
 
   ngOnInit(): void {
+	this.retrieveMateriales()
     if (!this.viewMode) {
       this.message = '';
       this.getElement(this.route.snapshot.params["id"]);
@@ -41,6 +46,16 @@ export class CursoDetailsComponent implements OnInit {
   }
 );
   }
+  
+  retrieveMateriales(): void {
+	this.materialService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.materiales = data;
+          console.log(this.materiales); },
+        error: (e) => console.error(e)
+      });
+     }
 
   getElement(id: string): void {
     this.cursoService.get(id)

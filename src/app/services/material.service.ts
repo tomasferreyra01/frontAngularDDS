@@ -54,19 +54,14 @@ export class MaterialService {
   findByCursoId(cursoId: number): Observable<Material[]> {
     return this.http.get<Material[]>(`${baseUrl}?idCurso=${cursoId}`);
   }
- 
-  /*obtenerMaterialesPorIdCurso(idCurso: number): Observable<Material[]> {
-    // Realiza una solicitud HTTP GET a la API con el parámetro id_curso
-    return this.http.get<Material[]>(`${baseUrl}?id_curso=${idCurso}`);
-  }*/
   
+  //Seria un Idtema
   obtenerMaterialesPorIdCurso(idCurso: number): Observable<Material[]> {
-  // Realiza una solicitud HTTP GET a la API con el parámetro id_curso
-  return this.http.get<Material[]>(`${baseUrl}?idCurso=${idCurso}`);
+    return this.http.get<Material[]>(`${baseUrl}/curso/${idCurso}`);
   }
 
-   findByTemaId(temaId: number): Observable<Material[]> {
-    return this.http.get<Material[]>(`${baseUrl}?idCurso=${temaId}`);
+	obtenerMaterialesPorIdTema(idTema: number): Observable<Material[]> {
+    return this.http.get<Material[]>(`${baseUrl}/tema/${idTema}`);
   }
  	
   }

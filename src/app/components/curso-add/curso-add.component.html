@@ -29,22 +29,24 @@
     </div>
     
     <div class="form-group">
-      <label for="tema">Tema del Curso</label>
-      <select class="form-control" id="tema" [(ngModel)]="curso.tema" name="tema" (change)="retrieveMateriales()">
-        <option value="0" disabled>Seleccione un tema</option>
-        <option *ngFor="let tema of temasCursos" [value]="tema.id">{{tema.nombre}}</option>
+      <label for="tema">Tema</label>
+      <select class="form-control"  [(ngModel)]="selectedTemaId" (ngModelChange)="retrieveMaterialesPorCurso()">
+      <option value="0">Selecciona un tema</option>
+      <option *ngFor="let tema of temas" [value]="tema.id" >{{ tema.nombre }}</option>
       </select>
-    </div>
-
-    <div class="form-group" *ngIf="materiales && materiales.length > 0">
-      <label for="material">Materiales</label>
-      <ul>
-        <li *ngFor="let material of materiales">
-          {{ material.titulo || 'Material sin título' }}
-        </li>
-      </ul>
-    </div>
-
+      <p>ID del tema seleccionado: {{ selectedTemaId }}</p>
+      </div>
+      
+      
+	 <div class="form-group">
+     <label for="material">Materiales</label>
+     <ul>
+     <li *ngFor="let materialT of materialesTema">
+     <input type="radio" [value]="materialT.id" [(ngModel)]="selectedMaterialId" disabled>
+     {{ materialT.titulo }}
+     </li>
+     </ul>
+	
     <button (click)="saveCurso()" class="btn btn-success">Crear curso</button>
   </div>
 
