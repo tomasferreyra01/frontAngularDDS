@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap');
+
+
+.navbar-morado {
+    background-color: #800080; /* Esto es morado 800080 */
+}	
+
+.navbar .nav-link{
+    font-family: 'Oswald', sans-serif;
+}

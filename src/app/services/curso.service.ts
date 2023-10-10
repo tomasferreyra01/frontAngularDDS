@@ -23,8 +23,16 @@ export class CursoService {
   create(data: any): Observable<any> {
     return this.http.post(`${baseUrl}`, data, {responseType: 'text'});
   }
-  update(id: any, data: Curso): Observable<any> {
-    return this.http.put(`${baseUrl}`, data, {responseType: 'text'});
+   update(id: any, data: Curso): Observable<any> {
+	//Conversione a form data
+	const bodyData = {
+		"id": id,
+    	"nombre": data.nombre,
+    	"fechaInicio": data.fechaInicio,
+    	"idDocente": data.idDocente ,
+    	/* "tema": data.tema */
+	};
+    return this.http.put(`${baseUrl}`, bodyData, {responseType: 'text'});
   }
   delete(id: any): Observable<any> {
     return this.http.delete(`${baseUrl}/delete/${id}`, {responseType: 'text'});
@@ -36,12 +44,12 @@ export class CursoService {
     return this.http.get<Curso>(`${baseUrl}?nombre=${nombre}`);
   }
   
-getTemasDeCurso(): Observable<any[]> {
-  return this.http.get<any[]>(baseUrl).pipe(
-    map(cursos => {
-      // Extrae los temas de cada curso y devuelve un array de temas
-      return cursos.map(curso => curso.tema);
-    })
-  );
-}
+  getTemasDeCurso(): Observable<any[]> {
+	return this.http.get<any[]>(baseUrl).pipe(
+	  map(cursos => {
+	    // Extrae los temas de cada curso y devuelve un array de temas
+	     return cursos.map(curso => curso.tema);
+	    })
+	  );
+	}
 }

@@ -1,25 +1,26 @@
 <div *ngIf="viewMode; else editable">
   <div *ngIf="currentElement.id">
-    <h4>Instituto educativo - Curso</h4>
+    <h4>Detalles del curso</h4>
     <div>
       <label><strong>Nombre:</strong></label> {{ currentElement.nombre }}
     </div>
+   <!-- <div>
+      <label><strong>Id:</strong></label> {{ currentElement.id }} 
+    </div> -->
     <div>
-      <label><strong>Id:</strong></label> {{ currentElement.id }}
-    </div>
-    <div>
-      <label><strong>Fecha inicio:</strong></label>
+      <label><strong>Fecha de inicio:</strong></label>
       {{ currentElement.fechaInicio }}
     </div>
     <div>
       <label><strong>Tema:</strong></label>
-      {{ currentElement.tema == null ? "-": currentElement.tema.nombre + " (" + currentElement.tema.id + ")" }}
+      {{ currentElement.tema == null ? "-": currentElement.tema.nombre}}
+     <!-- {{ currentElement.tema == null ? "-": currentElement.tema.nombre + " (" + currentElement.tema.id + ")" }}-->
     </div>    
     <a
-      class="badge badge-warning"
+      class="btn btn-primary btn-sm"
       routerLink="/cursos/{{ currentElement.id }}"
     >
-      Edit
+      Editar Curso
     </a>
   </div>
   <div *ngIf="!currentElement">
@@ -29,7 +30,7 @@
 </div>
 <ng-template #editable>
   <div *ngIf="currentElement.id" class="edit-form">
-    <h4>Instituto educativo - Curso</h4>
+    <h4>DDS - Instituto Educativo - Curso</h4>
     <form>
       <div class="form-group">
         <label for="title">Nombre del curso</label>
@@ -42,7 +43,7 @@
         />
       </div>
       <div class="form-group">
-        <label for="description">Fecha inicio:</label>
+        <label for="description">Fecha de inicio:</label>
         <input
           type="text"
           class="form-control"
@@ -51,21 +52,55 @@
           name="description"
         />
       </div>
+     
       <div class="form-group">
+        <label for="description">Tema del Curso</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentElement.tema"
+          name="description"
+        />
+      </div>
+      
+      <!--<div class="form-group">
+        <label for="description">Material</label>
+        <input
+          type="text"
+          class="form-control"
+          id="description"
+          [(ngModel)]="currentElement.tema"
+          name="description"
+        />
+      </div>-->
+    <!--  <div class="form-group">
         <label><strong>Docente id:</strong></label>
         {{ currentElement.idDocente == 0 ? "" : currentElement.idDocente }}
-      </div>
+      </div>-->
     </form>
-    <button class="badge badge-danger mr-2" (click)="deleteElement()">
-      Delete
+    
+    <button type="button" class="btn btn-success" (click)="updateElement()">
+    Actualizar Curso
+  </button>
+
+  <div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="showToastFlag">
+      <div class="toast-header">
+        <img src="/assets/logo.png" width="40" height="40" class="rounded me-2" alt="...">
+        <strong class="me-auto">DDS - Instituto</strong>
+      </div>
+      <div class="toast-body">
+        El curso fue actualizado!
+      </div>
+    </div>
+  </div>
+
+    
+    <button class="btn btn-danger" type = "button" (click)="deleteElement()">
+      Eliminar Curso
     </button>
-    <button
-      type="submit"
-      class="badge badge-success mb-2"
-      (click)="updateElement()"
-    >
-      Update
-    </button>
+    
     <p>{{ message }}</p>
   </div>
   <div *ngIf="!currentElement.id">

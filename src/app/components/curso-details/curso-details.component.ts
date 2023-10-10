@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CursoService } from 'src/app/services/curso.service';
 import { Curso } from 'src/app/models/curso.model';
 import { Tema } from 'src/app/models/tema.model';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-curso-details',
@@ -16,18 +17,31 @@ export class CursoDetailsComponent implements OnInit {
     status: 'draft',
     content: ''
   };
-  
+  temasCursos: any[] = [];
+
   message = '';
+  showToastFlag: boolean = false;
+
   constructor(
     private cursoService: CursoService,
     private route: ActivatedRoute,
     private router: Router) { }
+
   ngOnInit(): void {
     if (!this.viewMode) {
       this.message = '';
       this.getElement(this.route.snapshot.params["id"]);
     }
+    this.cursoService.getTemasDeCurso().subscribe(
+  temas => {
+    this.temasCursos = temas;
+  },
+  error => {
+    console.error('Error al obtener temas de cursos:', error);
   }
+);
+  }
+
   getElement(id: string): void {
     this.cursoService.get(id)
       .subscribe({
@@ -45,12 +59,12 @@ export class CursoDetailsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.message = res.message ? res.message : 'Curso actualizado!';
-          //this.router.navigate(['/cursos']);
+          this.showToast(); // Mostrar el toast
         },
         error: (e) => console.error(e)
       });
   }
+
   deleteElement(): void {
     this.cursoService.delete(this.currentElement.id)
       .subscribe({
@@ -60,5 +74,14 @@ export class CursoDetailsComponent implements OnInit {
         },
         error: (e) => console.error(e)
       });
+  }
+
+  showToast() {
+    this.showToastFlag = true;
+    setTimeout(() => this.hideToast(), 8000); // Ocultar el toast después de 8 segundos
+  }
+
+  hideToast() {
+    this.showToastFlag = false;
   }
 }

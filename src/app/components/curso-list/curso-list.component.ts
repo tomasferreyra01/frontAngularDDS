@@ -19,6 +19,14 @@ export class CursoListComponent implements OnInit {
     this.retrieveCursos();
   }
   
+  showDetails(curso: Curso, index: number): void {
+  this.setActiveElement(curso, index);
+  // código adicional para mostrar los detalles del curso
+  const cursoDetails = document.querySelector('.curso-details-container');
+  if (cursoDetails) {
+    cursoDetails.classList.add('show');
+  }
+}
   retrieveCursos(): void {
     this.cursoService.getAll()
       .subscribe({

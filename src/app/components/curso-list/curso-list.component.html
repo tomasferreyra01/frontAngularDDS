@@ -1,46 +1,54 @@
+<!-- Inicio de la lista -->
 <div class="list row">
+
+  <!-- Barra de búsqueda -->
   <div class="col-md-8">
     <div class="input-group mb-3">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="Buscar por título"
-        [(ngModel)]="title"
-      />
+      <input type="text" class="form-control" placeholder="Buscar por título" [(ngModel)]="title" />
       <div class="input-group-append">
-        <button
-          class="btn btn-outline-secondary"
-          type="button"
-          (click)="searchTitle()"
-        >
-          Buscar
-        </button>
+        <button class="btn btn-outline-secondary" type="button" (click)="searchTitle()">Buscar</button>
       </div>
     </div>
   </div>
+
+  <!-- Listado de Cursos -->
   <div class="col-md-6">
-    <h4>Listado Cursos</h4>
-    <ul class="list-group">
-      <li
-        class="list-group-item"
-        *ngFor="let curso of cursos; let i = index"
-        [class.active]="i == currentIndex"
-        (click)="setActiveElement(curso, i)"
-      >
-        {{ curso.nombre }} 
-        <div *ngIf="curso.tema">
-        	({{ curso.tema.nombre }})
-        </div> 
-      </li>
-    </ul>
-    <button class="m-3 btn btn-sm btn-danger" disabled (click)="removeAllElements()">
-      Remove All
-    </button>
+    <h4>Cursos</h4>
+
+    <!-- Grupo de tarjetas -->
+    <div class="row">
+      <!-- Tarjeta para cada curso -->
+      <div class="col-sm-4 mb-3" *ngFor="let curso of cursos; let i = index">
+        <div class="card h-100">
+   
+          <div class="card-body">
+            <h5 class="card-title">{{ curso.nombre }}</h5>
+            <p class="card-text" *ngIf="curso.tema">{{ curso.tema.nombre }}</p>
+            
+          </div>
+          <div class="card-footer">
+           <button class="btn btn-primary" (click)="showDetails(curso, i); $event.stopPropagation();">Detalles del curso</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón para eliminar todos los cursos -->
+    <button class="m-3 btn btn-sm btn-danger" disabled (click)="removeAllElements()">Eliminar todos</button>
   </div>
-<div class="col-md-6">
-  <app-curso-details
-  [viewMode]="true"
-  [currentElement]="currentElement"
-></app-curso-details>
+
+ <!-- Detalles del curso seleccionado -->
+<div class="col-md-6 curso-details-container">
+  <app-curso-details [viewMode]="true" [currentElement]="currentElement"></app-curso-details>
 </div>
-</div>
+
+
+
+</div> <!-- Fin de la lista -->
+
+<!-- Estilos CSS para las tarjetas -->
+<style>
+.card {
+  max-width: 300px;
+}
+</style>

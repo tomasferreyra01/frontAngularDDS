@@ -15,24 +15,41 @@
     <div class="form-group">
       <label for="content">Fecha de Inicio del Curso</label>
       <input
+        [class.error-input]="dateError"
         type="date"
         class="form-control"
-        id="content"
+        id="fechaInicio"
         required
         [(ngModel)]="curso.fechaInicio"
-        name="content"
+        name="fechaInicio"
+        placeholder="dd/mm/yyyy"
+        pattern="\d{2}/\d{2}/\d{4}"
       />
+      <div *ngIf="dateError" class="text-danger">La fecha de inicio debe ser mayor a la actual</div>
     </div>
-	<div class="form-group">
-	  <label for="tema">Tema del Curso</label>
-	  <select class="form-control" id="tema" [(ngModel)]="curso.tema" name="tema">
-	    <option *ngFor="let tema of temasCursos" [value]="tema">{{tema.nombre}}</option>
-	  </select>
-	</div>
-   <button (click)="saveCurso()" class="btn btn-success">Aceptar</button>
+    
+    <div class="form-group">
+      <label for="tema">Tema del Curso</label>
+      <select class="form-control" id="tema" [(ngModel)]="curso.tema" name="tema" (change)="retrieveMateriales()">
+        <option value="0" disabled>Seleccione un tema</option>
+        <option *ngFor="let tema of temasCursos" [value]="tema.id">{{tema.nombre}}</option>
+      </select>
+    </div>
+
+    <div class="form-group" *ngIf="materiales && materiales.length > 0">
+      <label for="material">Materiales</label>
+      <ul>
+        <li *ngFor="let material of materiales">
+          {{ material.titulo || 'Material sin título' }}
+        </li>
+      </ul>
+    </div>
+
+    <button (click)="saveCurso()" class="btn btn-success">Crear curso</button>
   </div>
-  	<div *ngIf="submitted">
+
+  <div *ngIf="submitted">
     <h4>Curso fue enviado exitosamente.</h4>
-    	<button class="btn btn-success" (click)="newCurso()">Agregar</button>
+    <button class="btn btn-success" (click)="newCurso()">Agregar</button>
   </div>
 </div>

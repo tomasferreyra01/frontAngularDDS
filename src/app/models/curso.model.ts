@@ -1,4 +1,5 @@
 import { Tema } from '../models/tema.model';
+import { Material } from '../models/material.model';
 
 export class Curso {
 	id?: number;
@@ -6,5 +7,6 @@ export class Curso {
 	tema?: Tema;
 	fechaInicio?: Date;
 	idDocente?: number;
+	materiales?: Material[];
 }
 
