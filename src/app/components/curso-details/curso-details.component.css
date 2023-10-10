@@ -1,5 +1,5 @@
 /* Estilo para la tostada */
-#liveToast.toast.toast {
+/*#liveToast.toast.toast {
   position: fixed;
   bottom: 30px;
   right: 30px;
@@ -8,5 +8,14 @@
   margin-right: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  background-color: rgb(255, 255, 255); /* Cambia el color del fondo según tus preferencias */
+  background-color: rgb(255, 255, 255); /* Cambia el color del fondo según tus preferencias }*/
+  
+
+
+/* Estilos para la lista de materiales */
+.material-list-item {
+  list-style-type: none;
+  margin-bottom: 5px;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
 }
