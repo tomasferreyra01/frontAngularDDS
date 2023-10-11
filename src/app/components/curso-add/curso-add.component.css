@@ -1,4 +1,4 @@
-.circle {
+	.circle {
   display: inline-block;
   width: 10px;
   height: 10px;
@@ -10,3 +10,86 @@
 .circle.selected {
   background-color: #00ff00; /* Color cuando está seleccionado */
 }
+
+
+
+.submit-form {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.text-danger {
+  color: red;
+}
+
+.error-input {
+  border-color: red;
+}
+
+.btn-success {
+  padding: 10px 20px;
+}
+
+h4 {
+  font-weight: bold;
+  text-align: center;
+}
+
+ul {
+  list-style: none; /* Quita los puntos predeterminados */
+  padding: 0; /* Elimina el relleno predeterminado de la lista */
+}
+
+li {
+  margin-bottom: 5px; /* Espacio entre elementos */
+  display: flex;
+  align-items: center; /* Centra verticalmente el contenido */
+}
+
+/* Estilo para el radio button y su label */
+li input[type="radio"] {
+  margin-right: 10px; /* Espacio entre el radio button y el texto */
+}
+
+.btn-success {
+  padding: 10px 20px; /* Ajusta el tamaño del botón */
+  background-color: #800080; /* Color de fondo del botón */
+  border: 1.5px solid #000000; /* Agrega un borde negro alrededor del botón */
+  border-radius: 18px; /* Hace que los bordes del botón sean redondos */
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra al botón */
+  display: block; /* Hace que el botón se muestre como un bloque, lo que permite centrarlo con margen automático */
+  margin: 0 auto; /* Centra el botón */
+  width: 30%;
+}
+
+body {
+  font-family: 'Oswald', sans-serif !important;
+}
+
+
+
+
+
+
+
+
+

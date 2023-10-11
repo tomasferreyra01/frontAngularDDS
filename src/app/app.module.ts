@@ -8,9 +8,7 @@ import { AppComponent } from './app.component';
 import { CursoAddComponent } from './components/curso-add/curso-add.component';
 import { CursoListComponent } from './components/curso-list/curso-list.component';
 import { CursoDetailsComponent } from './components/curso-details/curso-details.component';
-import { PostAddComponent } from './components/post-add/post-add.component';
-import { PostListComponent } from './components/post-list/post-list.component';
-import { PostDetailsComponent } from './components/post-details/post-details.component';
+import { TemaAddComponent } from './components/tema-add/tema-add.component';
 
 
 @NgModule({
@@ -19,9 +17,7 @@ import { PostDetailsComponent } from './components/post-details/post-details.com
     CursoAddComponent,
     CursoListComponent,
     CursoDetailsComponent,
-    PostAddComponent,
-    PostListComponent,
-    PostDetailsComponent,
+    TemaAddComponent,
   ],
   imports: [
     BrowserModule,
