@@ -1,34 +1,29 @@
-	.circle {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin-left: 5px; /* Ajusta el margen izquierdo para separar del texto */
-  background-color: #ccc; /* Color del círculo */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet');
+
+
+.submit-form .form-content {
+  font-family: 'Open Sans', sans-serif;
 }
 
-.circle.selected {
-  background-color: #00ff00; /* Color cuando está seleccionado */
+body {
+  font-family: 'Open Sans', sans-serif !important;
 }
-
 
 
 .submit-form {
-  max-width: 500px;
+  max-width: 800px;
   margin: 0 auto;
-  padding: 20px;
 }
 
 .form-group {
   margin-bottom: 15px;
+
 }
 
-.form-control {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.form-content {
+  padding: 50px;
+  border: none;
+  background-color: transparent;
 }
 
 label {
@@ -55,35 +50,56 @@ h4 {
 }
 
 ul {
-  list-style: none; /* Quita los puntos predeterminados */
-  padding: 0; /* Elimina el relleno predeterminado de la lista */
+  list-style: none; 
+  padding: 0; 
 }
 
 li {
-  margin-bottom: 5px; /* Espacio entre elementos */
+  margin-bottom: 5px; 
   display: flex;
-  align-items: center; /* Centra verticalmente el contenido */
+  align-items: center; 
 }
 
-/* Estilo para el radio button y su label */
+
 li input[type="radio"] {
-  margin-right: 10px; /* Espacio entre el radio button y el texto */
+  margin-right: 10px; 
 }
 
 .btn-success {
-  padding: 10px 20px; /* Ajusta el tamaño del botón */
-  background-color: #800080; /* Color de fondo del botón */
-  border: 1.5px solid #000000; /* Agrega un borde negro alrededor del botón */
-  border-radius: 18px; /* Hace que los bordes del botón sean redondos */
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); /* Agrega una sombra al botón */
-  display: block; /* Hace que el botón se muestre como un bloque, lo que permite centrarlo con margen automático */
-  margin: 0 auto; /* Centra el botón */
+  padding: 10px 20px; 
+  background-color: #620096; 
+  border: 0.5px solid #000000; 
+  border-radius: 15px; 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5); 
+  display: block; 
+  margin: 0 auto; 
   width: 30%;
 }
 
-body {
-  font-family: 'Oswald', sans-serif !important;
+.form-title {
+  text-align: center; 
+  font-weight: bold;
+  font-size:2em;
 }
+
+.submit-form {
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #000; 
+  padding: 20px; 
+  border-radius: 10px; 
+  background-color: rgb(255, 255, 255); 
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ccc; 
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
 
 
 

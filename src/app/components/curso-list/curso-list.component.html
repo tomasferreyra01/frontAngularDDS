@@ -1,7 +1,4 @@
-<!-- Inicio de la lista -->
-<div class="list row">
-
-  <!-- Barra de búsqueda -->
+<div class="list row main-container">
   <div class="col-md-8">
     <div class="input-group mb-3">
       <input type="text" class="form-control" placeholder="Buscar por título" [(ngModel)]="title" />
@@ -11,44 +8,28 @@
     </div>
   </div>
 
-  <!-- Listado de Cursos -->
   <div class="col-md-6">
-    <h4>Cursos</h4>
+    <div class="title-container">
+      <img src="/assets/list.png" alt="Logo" class="title-logo">
+      <h4 class="list-title">Listado de Cursos</h4>
+    </div>
 
-    <!-- Grupo de tarjetas -->
     <div class="row">
-      <!-- Tarjeta para cada curso -->
       <div class="col-sm-4 mb-3" *ngFor="let curso of cursos; let i = index">
         <div class="card h-100">
-   
           <div class="card-body">
             <h5 class="card-title">{{ curso.nombre }}</h5>
             <p class="card-text" *ngIf="curso.tema">{{ curso.tema.nombre }}</p>
-            
           </div>
           <div class="card-footer">
-           <button class="btn btn-primary" (click)="showDetails(curso, i); $event.stopPropagation();">Detalles del curso</button>
+            <button class="btn btn-primary" (click)="showDetails(curso, i); $event.stopPropagation();">Detalles</button>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- Botón para eliminar todos los cursos -->
-    <button class="m-3 btn btn-sm btn-danger" disabled (click)="removeAllElements()">Eliminar todos</button>
   </div>
 
- <!-- Detalles del curso seleccionado -->
-<div class="col-md-6 curso-details-container">
-  <app-curso-details [viewMode]="true" [currentElement]="currentElement"></app-curso-details>
+  <div class="col-md-6 curso-details-container">
+    <app-curso-details [viewMode]="true" [currentElement]="currentElement"></app-curso-details>
+  </div>
 </div>
-
-
-
-</div> <!-- Fin de la lista -->
-
-<!-- Estilos CSS para las tarjetas -->
-<style>
-.card {
-  max-width: 300px;
-}
-</style>

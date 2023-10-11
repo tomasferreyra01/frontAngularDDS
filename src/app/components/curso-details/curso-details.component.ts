@@ -21,8 +21,6 @@ export class CursoDetailsComponent implements OnInit {
     status: 'draft',
     content: ''
   };
-  temasCursos: any[] = [];
-  materiales?: Material[];
 
   message = '';
   showToastFlag: boolean = false;
@@ -33,40 +31,37 @@ export class CursoDetailsComponent implements OnInit {
     private router: Router,
     private materialService: MaterialService,
     private temaService: TemaService) { }
-
+    
+   private previousTemaId: any;
+   idTema = this.temaService.get(this.currentElement)
+   selectedTemaId : number = 0;
+   materialesTema?: Material[] = [];
+   
   ngOnInit(): void {
-	this.retrieveMateriales()
     if (!this.viewMode) {
       this.message = '';
       this.getElement(this.route.snapshot.params["id"]);
     }
-    this.cursoService.getTemasDeCurso().subscribe(
-  temas => {
-    this.temasCursos = temas;
-  },
-  error => {
-    console.error('Error al obtener temas de cursos:', error);
-  }
-);
   }
   
-  //MOSTRAR EL TEMA Y SU RESPECTIVO MATERIAL
-  private previousTemaId: any;
-  idTema = this.temaService.get(this.currentElement)
-  seleccionarTemaId : number = 0;
-  materialesPorTema?: Material[] = [];
-  
-  
-  retrieveMateriales(): void {
-	this.materialService.getAll()
+   retrieveMaterialesPorCurso(): void {
+	this.materialService.obtenerMaterialesPorIdCurso(this.selectedTemaId)
       .subscribe({
         next: (data) => {
-          this.materiales = data;
-          console.log(this.materiales); },
-        error: (e) => console.error(e)
-      });
-     }
-
+          this.materialesTema = data;
+          console.log(this.materialesTema);
+          console.log("Materiales:", this.materialesTema); },
+        error: (e) => console.error("Materiales error")
+      });  };
+ 
+	  asignarTemaId(idTema : any) {
+	 if (idTema !== this.previousTemaId) { 
+	  this.selectedTemaId = idTema 
+	  this.retrieveMaterialesPorCurso()
+	  this.previousTemaId = idTema;
+	  }
+	 }
+ 
   getElement(id: string): void {
     this.cursoService.get(id)
       .subscribe({
@@ -84,7 +79,7 @@ export class CursoDetailsComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
-          this.showToast(); // Mostrar el toast
+      
         },
         error: (e) => console.error(e)
       });
@@ -100,32 +95,6 @@ export class CursoDetailsComponent implements OnInit {
         error: (e) => console.error(e)
       });
   }
-  
-   retrieveMaterialesPorCurso(): void {
-	this.materialService.obtenerMaterialesPorIdCurso(this.seleccionarTemaId)
-      .subscribe({
-        next: (data) => {
-          this.materialesPorTema = data;
-          console.log(this.materialesPorTema);
-          console.log("Materiales que fueron recuperados:", this.materialesPorTema); },
-        error: (e) => console.error("Materiales no fueron recuperados")
-      });  };
-  
- 
-  asignarTemaId(idTema : any) {
- if (idTema !== this.previousTemaId) { 
-  this.seleccionarTemaId = idTema 
-  this.retrieveMaterialesPorCurso()
-  this.previousTemaId = idTema;
-  }}
-  
 
-  showToast() {
-    this.showToastFlag = true;
-    setTimeout(() => this.hideToast(), 8000); // Ocultar el toast después de 8 segundos
-  }
-
-  hideToast() {
-    this.showToastFlag = false;
-  }
+  
 }

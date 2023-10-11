@@ -1,57 +1,76 @@
 <div class="submit-form">
-  <div *ngIf="!submitted">
-    <div class="form-group">
-      <label for="title">Nombre del Curso</label>
-      <input
-        type="text"
-        class="form-control"
-        id="title"
-        required
-        [(ngModel)]="curso.nombre"
-        name="title"
-        placeholder="Ingrese el nombre del curso"
-      />
-    </div>
-    <div class="form-group">
-      <label for="content">Fecha de Inicio del Curso</label>
-      <input
-        [class.error-input]="dateError"
-        type="date"
-        class="form-control"
-        id="fechaInicio"
-        required
-        [(ngModel)]="curso.fechaInicio"
-        name="fechaInicio"
-        placeholder="dd/mm/yyyy"
-        pattern="\d{2}/\d{2}/\d{4}"
-      />
-      <div *ngIf="dateError" class="text-danger">La fecha de inicio debe ser mayor a la actual</div>
-    </div>
-    
-    <div class="form-group">
-      <label for="tema">Tema</label>
-      <select class="form-control"  [(ngModel)]="selectedTemaId" (ngModelChange)="retrieveMaterialesPorCurso()">
-      <option value="0">Selecciona un tema</option>
-      <option *ngFor="let tema of temas" [value]="tema.id" >{{ tema.nombre }}</option>
-      </select>
+  <h1 class="form-title">
+  <img src="/assets/logoedit.png" alt="Icono" style="height: 1em; vertical-align: middle;">
+  Gestión de Cursos - Crear Nuevo Curso
+	</h1>
+
+  <div class="form-content">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title">Nombre del Curso</label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="curso.nombre"
+          name="title"
+          placeholder="Ingrese el nombre del curso"
+        />
+        
+      </div>
+
+      <div class="form-group">
+        <label for="content">Fecha de Inicio del Curso</label>
+        <input
+          [class.error-input]="dateError"
+          type="date"
+          class="form-control"
+          id="fechaInicio"
+          required
+          [(ngModel)]="curso.fechaInicio"
+          name="fechaInicio"
+          placeholder="dd/mm/yyyy"
+          pattern="\d{2}/\d{2}/\d{4}"
+        />
+        <div *ngIf="dateError" class="text-danger">La fecha de inicio debe ser mayor a la actual</div>
       </div>
       
-      
-	 <div class="form-group" *ngIf="selectedTemaId">
-  <label for="material">Materiales del tema</label>
-  <ul>
-    <li *ngFor="let materialT of materialesTema">
-      <input type="radio" [value]="materialT.id" [(ngModel)]="selectedMaterialId" disabled>
-      {{ materialT.titulo }}
-    </li>
-  </ul>
-</div>
+      <div class="form-group">
+      	<label for="docente">Docente Asignado</label>
+      		<select class="form-control" id="docente" required [(ngModel)]="curso.idDocente">
+      	<option value="0">Seleccione un docente</option>
+      	<option value="1">Claudia Chavez</option>
+      	<option value="2">Pedro Benedetto</option>
+      	<option value="3">Tomas Marc	one</option>
+      	<option value="4">Juan Mas</option> </select>
+      <p>ID del profesor seleccionado: {{ curso.idDocente }}</p>
+      </div>
 
-    <button (click)="saveCurso()" class="btn btn-success">Crear curso</button>
-  </div>
+      <div class="form-group">
+        <label for="tema">Tema</label>
+        <select class="form-control"  [(ngModel)]="selectedTemaId" (ngModelChange)="retrieveMaterialesPorCurso()">
+        <option value="0">Selecciona un tema</option>
+        <option *ngFor="let tema of temas" [value]="tema.id" >{{ tema.nombre }}</option>
+        </select>
+      </div>
 
-  <div *ngIf="submitted">
-    <h4>Curso fue enviado exitosamente.</h4>
-    <button class="btn btn-success" (click)="newCurso()">Agregar</button>
+      <div class="form-group" *ngIf="selectedTemaId">
+        <label for="material">Materiales del tema</label>
+        <ul>
+          <li *ngFor="let materialT of materialesTema">
+            <input type="radio" [value]="materialT.id" [(ngModel)]="selectedMaterialId" disabled>
+            {{ materialT.titulo }}
+          </li>
+        </ul>
+      </div>
+
+      <button (click)="saveCurso()" class="btn btn-success">Crear curso</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Curso fue enviado exitosamente.</h4>
+      <button class="btn btn-success" (click)="newCurso()">Agregar</button>
+    </div>
   </div>
 </div>

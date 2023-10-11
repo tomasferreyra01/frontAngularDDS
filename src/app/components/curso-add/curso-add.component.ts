@@ -26,6 +26,8 @@ export class CursoAddComponent implements OnInit {
   temas?:Tema[];
   selectedMaterialId : number = 0;
   dateError: boolean = false;
+  nameError: boolean = false;
+  temaError: boolean = false;
 
   constructor(private cursoService: CursoService, 
   private materialService: MaterialService,
@@ -39,8 +41,6 @@ export class CursoAddComponent implements OnInit {
 	this.retrieveMateriales()
 	this.retrieveTema()
 	this.retrieveMaterialesPorCurso()	
-    // Suponiendo que tienes una variable para almacenar el id del curso seleccionado
-    const idCursoSeleccionado = 1; // Debes obtener este valor según la lógica de tu aplicación
 
     this.cursoService.getTemasDeCurso().subscribe(
   temas => {

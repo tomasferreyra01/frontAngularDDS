@@ -21,6 +21,10 @@ export class CursoService {
     return this.http.get<Curso>(`${baseUrl}/${id}`);
   }
   create(data: any): Observable<any> {
+	const formData = new FormData();
+	formData.append('title', <string>data.title);
+    formData.append('status', <string>data.status);
+	formData.append('content', <string>data.content);
     return this.http.post(`${baseUrl}`, data, {responseType: 'text'});
   }
    update(id: any, data: Curso): Observable<any> {
@@ -47,8 +51,7 @@ export class CursoService {
   getTemasDeCurso(): Observable<any[]> {
 	return this.http.get<any[]>(baseUrl).pipe(
 	  map(cursos => {
-	    // Extrae los temas de cada curso y devuelve un array de temas
-	     return cursos.map(curso => curso.tema);
+	     return cursos.map(curso => curso.tema); //EXTRAE TEMAS DE LOS CURSOS Y DEVUELVE ARRAY (ES UN MAP)
 	    })
 	  );
 	}
