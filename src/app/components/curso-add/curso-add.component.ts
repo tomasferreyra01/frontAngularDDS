@@ -17,9 +17,10 @@ export class CursoAddComponent implements OnInit {
   fechaInicio: new Date(),
   idDocente: 1,
   tema: { 
-    id: 0 // Aquí estamos estableciendo el id del tema dentro de un objeto
+    id: 0,
    }
   };
+  
   submitted = false;
   temasCursos: any[] = [];
   materiales?: Material[];
@@ -49,20 +50,28 @@ export class CursoAddComponent implements OnInit {
   error => {
     console.error('Error al obtener temas de cursos:', error);
   }
-);
-
-
+	);
   }
+  
   saveCurso(): void {
-    this.cursoService.create(this.curso).subscribe(
-      response => {
-        console.log('Curso creado exitosamente:', response);
-        this.submitted = true;
-      },
-      error => {
-        console.error('Error al crear el curso:', error);
-      }
-    );
+    const data = {
+		"id": this.curso.id,
+    	"nombre": this.curso.nombre,
+    	"fechaInicio": this.curso.fechaInicio,
+    	"idDocente": this.curso.idDocente,
+    	"tema": { id: this.selectedTemaId }
+    	};
+    this.cursoService.create(data)
+      .subscribe({
+        next: (res) => {	
+          console.log(res);
+          this.submitted = true;
+        },
+        error: (e) =>
+        {
+        	console.error(e);
+		} 
+      });
   }
   //CARGO LA LISTA DE MATERIALES
   retrieveMateriales(): void {
@@ -90,18 +99,16 @@ export class CursoAddComponent implements OnInit {
         next: (data) => {
           this.materialesTema = data;
           console.log(this.materialesTema);
-          console.log("Materiales recuperados:", this.materialesTema); },
-        error: (e) => console.error("Materiales no recuperados")});  };
+          console.log("Materiales:", this.materialesTema); },
+        error: (e) => console.error("Materiales error")});  };
         
   newCurso(): void {
     this.submitted = false;
     this.curso = {
 	  nombre: '',
 	  fechaInicio: new Date(),
-	  idDocente: 1, //campo obligatorio
-	  tema: {
-	    id: 0 // Aquí estamos estableciendo el id del tema dentro de un objeto
-	  }
+	  idDocente: 1,
+	  tema:{ id: this.selectedTemaId }
 	};
   }
   

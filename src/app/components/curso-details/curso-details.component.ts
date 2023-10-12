@@ -21,6 +21,15 @@ export class CursoDetailsComponent implements OnInit {
     status: 'draft',
     content: ''
   };
+  
+  curso: Curso = {
+  nombre: '',
+  fechaInicio: new Date(),
+  idDocente: 1,
+  tema: { 
+    id: 0,
+   }
+  };
 
   message = '';
   showToastFlag: boolean = false;
@@ -75,14 +84,22 @@ export class CursoDetailsComponent implements OnInit {
 
   updateElement(): void {
     this.message = '';
-    this.cursoService.update(this.currentElement.id, this.currentElement)
-      .subscribe({
-        next: (res) => {
-          console.log(res);
-      
-        },
-        error: (e) => console.error(e)
-      });
+    const data = {
+    id: this.currentElement.id, 
+    nombre: this.currentElement.nombre, 
+    fechaInicio: this.curso.fechaInicio,
+    tema:{id:1},
+    idDocente:1,
+  };
+
+  this.cursoService.update(data.id, data)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.message = res.message ? res.message : 'Curso actualizado!';
+      },
+      error: (e) => console.error(e)
+    });
   }
 
   deleteElement(): void {
