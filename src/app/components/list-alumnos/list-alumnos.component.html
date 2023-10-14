@@ -1,0 +1,31 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+ 
+    
+    <!-- Lista de Alumnos -->
+    <div class="col-md-4">
+      <div class="alumnos-list">  
+        <h4 class="text-center font-weight-bold mb-3">Listado de Alumnos</h4>
+        <p class="text-center">Seleccione el alumno que desea ver sus detalles.</p>
+        <ul class="list-group rounded">
+          <li
+            class="list-group-item"
+            *ngFor="let alumno of alumnos; let i = index"
+            [class.active]="i === currentIndex"
+            (click)="showDetails(alumno, i)"
+          >
+     <img src="/assets/alumno.png" alt="Icono" class="icono"> [{{ alumno.id }}] - {{ alumno.nombre }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+	    <div class="alumno-details rounded" *ngIf="showAlumnoDetails">
+	  <h2 class="titulo">Detalles del Alumno</h2>
+	  <p class="detalle"><strong>Nombre: </strong> <span>{{ currentElement.nombre }}</span></p>
+	  <p class="detalle"><strong>ID: </strong> <span>{{ currentElement.id }}</span></p>
+	  <p class="detalle"><strong>Fecha de Nacimiento: </strong> <span>{{ currentElement.fechaNacimiento }}</span></p>
+	</div>
+
+
+

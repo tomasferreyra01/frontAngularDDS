@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Material } from 'src/app/models/material.model'
-import { MaterialService } from 'src/app/services/material.service';
 import {TemaService} from 'src/app/services/tema.service';
 import { Tema } from 'src/app/models/tema.model';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -12,21 +11,57 @@ import { Tema } from 'src/app/models/tema.model';
 })
 export class TemaAddComponent implements OnInit {
 	tema: Tema={
-	id: 0,
+	id: null,
 	nombre: '',
-	duracion: 0
+	duracion: null
 	};
 	
 	submitted = false;
-	temasCursos: any[] = [];
-	materiales?: Material[];
 	temas?:Tema[];
 	
 
-  constructor(private materialService: MaterialService,
-  private temaService: TemaService) { }
+  constructor(private temaService: TemaService) { }
 
   ngOnInit(): void {
+	this.retrieveTema()	
   }
+  
+  saveTema(): void {
+    const data = {
+		"id": this.tema.id,
+    	"nombre": this.tema.nombre,
+    	"duracion": this.tema.duracion,
+    	};
+    this.temaService.create(data)
+      .subscribe({
+        next: (res) => {	
+          console.log(res);
+          this.submitted = true;
+        },
+        error: (e) =>
+        {
+        	console.error(e);
+		} 
+      });
+  }
+    
+  retrieveTema(): void {
+ 	this.temaService.getAll()
+      .subscribe({
+        next: (data) => {
+          this.temas = data;
+          console.log(this.temas);},
+        error: (e) => console.error(e)});
+  }	
 
+
+  newTema(): void {
+    this.submitted = false;
+    this.tema = {};
+  }
+  
+  isFormValid() {
+    return this.tema.nombre && this.tema.duracion && this.tema.id;
+  }
+ 
 }

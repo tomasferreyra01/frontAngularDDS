@@ -16,7 +16,7 @@ body {
   padding: 10px; /* Ajusta el espaciado interno según sea necesario */
   margin: 10px; /* Ajusta el margen según sea necesario */
   border-radius: 10px;
-  max-width: 400px;
+  max-width: 700px;
   margin: auto;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   border: 1px solid #000;
@@ -24,10 +24,10 @@ body {
   text-align: left;
 }
 
-
-
 .curso-details-container.show {
   display: inline-block; 
+  max-width: 350px;
+  max-height: 400;
 }
 
 .card {
@@ -89,12 +89,12 @@ body {
 
 .title-container {
   display: flex;
-  justify-content: center; /* Centra los elementos horizontalmente */
+  justify-content: center;
   align-items: center;
 }
 
 .title-logo {
-  height: 1.8em; /* Ajusta este valor para cambiar el tamaño del logo */
+  height: 1.8em; 
   margin-right: 0.5em;
 }
 

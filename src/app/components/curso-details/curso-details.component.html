@@ -10,12 +10,7 @@
     </div>
     <div>
 	
-      <div>
-      <label><strong>Docente:</strong></label> 
-       {{ currentElement.idDocente === 1 ? 'Claudia Chavez' : currentElement.idDocente === 2 ? 'Pedro Benedetto' : currentElement.idDocente === 3 ? 'Tomas Marcone' : currentElement.idDocente === 4 ? 'Juan Mas' : 'Desconocido'}}
-    </div>	
-		
-      <label><strong>Tema:</strong></label>
+	<label><strong>Tema:</strong></label>
       {{ currentElement.tema == null ? "-" : currentElement.tema.nombre }}
     </div>
 
@@ -31,6 +26,11 @@
           {{ materialT.titulo}}
         </li>
       </ul>
+    </div>
+
+      <div>
+      <label><strong>Docente:</strong></label> 
+       {{ currentElement.idDocente === 1 ? 'Claudia Chavez' : currentElement.idDocente === 2 ? 'Pedro Benedetto' : currentElement.idDocente === 3 ? 'Tomas Marcone' : currentElement.idDocente === 4 ? 'Juan Mas' : 'Desconocido'}}
     </div>
 	  
 		<a class="btn btn-sm custom-edit-button" routerLink="/cursos/{{ currentElement.id }}">
@@ -58,10 +58,17 @@
           type="text"
           class="form-control"
           id="title"
-          [(ngModel)]="currentElement.nombre"
+          required
+          placeholder="Ingrese un nombre"
           name="title"
+          [(ngModel)]="currentElement.nombre" 
+          #nombreInput="ngModel"
         />
+        <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error-message">
+          El nombre es un campo obligatorio.
+        </div>
       </div>
+      
       <div class="form-group">
         <label for="description">Fecha de inicio:</label>
         <input
@@ -73,12 +80,7 @@
         />
       </div>
       
-      <div>
-      <label><strong>Docente:</strong></label> 
-      {{ currentElement.idDocente === 1 ? 'Claudia Chavez' : currentElement.idDocente === 2 ? 'Pedro Benedetto' : currentElement.idDocente === 3 ? 'Tomas Marcone' : currentElement.idDocente === 4 ? 'Juan Mas' : 'Desconocido'}}
-        </div>
-
-       <div class="form-group">
+      <div class="form-group">
         <label><strong>Tema:</strong></label>
         {{ currentElement.tema == null ? "-" : currentElement.tema.nombre }}
       </div>
@@ -93,17 +95,25 @@
         </li>
       </ul>
     </div>
+      
+      <div>
+      <label><strong>Docente:</strong></label> 
+      {{ currentElement.idDocente === 1 ? 'Claudia Chavez' : currentElement.idDocente === 2 ? 'Pedro Benedetto' : currentElement.idDocente === 3 ? 'Tomas Marcone' : currentElement.idDocente === 4 ? 'Juan Mas' : 'Desconocido'}}
+        </div>
 
-    <button type="button" class="btn btn-success" (click)="updateElement()">Actualizar Curso</button>
+       
+
+    <button type="button" class="btn btn-success" (click)="updateElement()" >Actualizar Curso</button>
 
 
-    <button class="btn btn-danger" type="button" (click)="deleteElement()">Eliminar Curso</button>
+    <!--<button class="btn btn-danger" type="button" (click)="deleteElement()">Eliminar Curso</button>-->
+    <button type="button" class="btn btn-success" (click)="cancelUpdate()" > Volver Atrás </button>
 
-    <p>{{ message }}</p>
+    <p class="success-message">{{ message }}</p>
   </div>
-
   <div *ngIf="!currentElement.id">
     <br />
     <p>Elemento no encontrado...</p>
   </div>
+  
 </ng-template>

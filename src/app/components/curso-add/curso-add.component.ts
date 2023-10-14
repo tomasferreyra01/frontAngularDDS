@@ -5,6 +5,7 @@ import { Material } from 'src/app/models/material.model'
 import { MaterialService } from 'src/app/services/material.service';
 import {TemaService} from 'src/app/services/tema.service';
 import { Tema } from 'src/app/models/tema.model';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-curso-add',
@@ -29,10 +30,21 @@ export class CursoAddComponent implements OnInit {
   dateError: boolean = false;
   nameError: boolean = false;
   temaError: boolean = false;
+  cursoForm: FormGroup;
+  
+  minDate = new Date();
 
   constructor(private cursoService: CursoService, 
   private materialService: MaterialService,
-  private temaService: TemaService) {}
+  private temaService: TemaService,
+  private formBuilder: FormBuilder) {
+	  this.cursoForm = this.formBuilder.group({
+      nombre: ['', Validators.required],
+      tema: [null, Validators.required],
+      fechaInicio: [new Date(), [Validators.required]],
+      idDocente: [1, Validators.required],
+    });
+  }
 
   selectedTemaId : number = 0;
   materialesTema?: Material[] = [];
@@ -51,6 +63,7 @@ export class CursoAddComponent implements OnInit {
     console.error('Error al obtener temas de cursos:', error);
   }
 	);
+	this.minDate.setDate(this.minDate.getDate() + 2)
   }
   
   saveCurso(): void {

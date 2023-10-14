@@ -34,7 +34,7 @@ export class CursoService {
     	"nombre": data.nombre,
     	"fechaInicio": data.fechaInicio,
     	"idDocente": data.idDocente ,
-    	/* "tema": data.tema */
+    	 "tema": data.tema
 	};
     return this.http.put(`${baseUrl}`, bodyData, {responseType: 'text'});
   }

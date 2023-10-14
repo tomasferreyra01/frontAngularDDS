@@ -57,7 +57,7 @@ export class MaterialService {
     return this.http.get<Material[]>(`${baseUrl}/curso/${idCurso}`);
   }
 
-	obtenerMaterialesPorIdTema(idTema: number): Observable<Material[]> {
+  obtenerMaterialesPorIdTema(idTema: number): Observable<Material[]> {
     return this.http.get<Material[]>(`${baseUrl}/tema/${idTema}`);
   }
  	

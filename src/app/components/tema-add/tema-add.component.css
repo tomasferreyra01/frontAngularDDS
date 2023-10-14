@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif !important;
+}
+
+.submit-form {
+  max-width: 700px;
+  margin: 0 auto;
+  border: 1px solid #000;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-control {
+  width: calc(100% - 20px);
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+}
+
+.btn-success {
+  padding: 10px 20px;
+  background-color: #620096;
+  border: 0.5px solid #000000;
+  border-radius: 15px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+  display: block;
+  margin: 0 auto;
+  width: 30%;
+}
+
+.form-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.form-label {
+  font-weight: bold;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.error-message {
+  color: red; 
+}

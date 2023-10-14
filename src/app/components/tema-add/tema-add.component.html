@@ -1,1 +1,68 @@
-<p>tema-add works!</p>
+<div class="submit-form">
+  <h1 class="form-title text-center">
+    <strong>Gestión de Cursos - Crear Nuevo Tema</strong>
+  </h1>
+
+  <div class="form-content">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="title" class="form-label"><strong>Nombre del Tema</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          required
+          [(ngModel)]="tema.nombre"
+          name="title"
+          placeholder="Ingrese el nombre del tema"
+          #nombreInput="ngModel"
+        />
+        <div *ngIf="!tema.nombre && nombreInput.touched" class="error-message">
+          El nombre del tema es un campo obligatorio.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="duration" class="form-label"><strong>Duración</strong></label>
+        <input
+          type="number"
+          class="form-control"
+          id="duration"
+          required
+          [(ngModel)]="tema.duracion"
+          name="duration"
+          placeholder="Ingrese la duración del tema"
+          #duracionInput="ngModel"
+        />
+        <div *ngIf="!tema.duracion && duracionInput.touched" class="error-message">
+          La duración del tema es un campo obligatorio.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="id" class="form-label"><strong>ID</strong></label>
+        <input
+          type="number"
+          class="form-control"
+          id="id"
+          required
+          [(ngModel)]="tema.id"
+          name="id"
+          placeholder="Ingrese el ID del tema"
+          #idInput="ngModel"
+        />
+        <div *ngIf="!tema.id && idInput.touched" class="error-message">
+          El ID del tema es un campo obligatorio.
+        </div>
+      </div>
+
+      <button [disabled]="!isFormValid()" (click)="saveTema()" class="btn btn-success">Crear Tema</button>
+
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>El tema fue creado exitosamente.</h4>
+      <button class="btn btn-success" (click)="newTema()">Agregar Nuevo Tema</button>
+    </div>
+  </div>
+</div>

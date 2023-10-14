@@ -1,5 +1,5 @@
 export class Tema {
-	id?: number;
+	id?: number | null;
 	nombre?: string;
-	duracion?: number;
+	duracion?: number | null;
 }

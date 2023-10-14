@@ -16,7 +16,11 @@
           [(ngModel)]="curso.nombre"
           name="title"
           placeholder="Ingrese el nombre del curso"
+          #nombreInput="ngModel"
         />
+        <div *ngIf="nombreInput.invalid && nombreInput.touched" class="error-message">
+          El nombre es un campo obligatorio.
+        </div>
         
       </div>
 
@@ -65,12 +69,12 @@
         </ul>
       </div>
 
-      <button (click)="saveCurso()" class="btn btn-success">Crear curso</button>
+      <button [disabled]="!nombreInput.valid" (click)="saveCurso()" class="btn btn-success">Crear Curso</button>
     </div>
 
     <div *ngIf="submitted">
-      <h4>Curso fue enviado exitosamente.</h4>
-      <button class="btn btn-success" (click)="newCurso()">Agregar nuevo</button>
+      <h4>El curso fue creado exitosamente.</h4>
+      <button class="btn btn-success" (click)="newCurso()">Agregar Nuevo Curso</button>
     </div>
   </div>
 </div>

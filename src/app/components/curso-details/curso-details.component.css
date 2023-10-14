@@ -120,5 +120,9 @@ h4 {
   margin-right: 0.5em;
 }
 
+.error-message {
+  color: red !important;
+}
+
 
 
