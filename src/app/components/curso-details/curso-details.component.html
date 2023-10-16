@@ -86,27 +86,30 @@
       </div>
     </form>
     
-    <div>
-      <label><strong>Materiales:</strong></label>
-      <ul>
-        <li *ngFor="let materialT of materialesTema" class="material-list-item">
-          <input type="radio" [value]="materialT.id" disabled>
-          {{ materialT.titulo}}
-        </li>
-      </ul>
-    </div>
+ 
+
+  <div *ngIf="currentElement.tema" class="course-theme-id">
+  {{ asignarTemaId(currentElement.tema.id) }}
+</div>
+
+<div *ngIf="materialesTema && materialesTema.length > 0">
+  <label><strong>Materiales:</strong></label>
+  <ul>
+    <li *ngFor="let materialT of materialesTema" class="material-list-item">
+      <input type="radio" [value]="materialT.id" disabled>
+      {{ materialT.titulo }}
+    </li>
+  </ul>
+</div>
+
       
       <div>
       <label><strong>Docente:</strong></label> 
       {{ currentElement.idDocente === 1 ? 'Claudia Chavez' : currentElement.idDocente === 2 ? 'Pedro Benedetto' : currentElement.idDocente === 3 ? 'Tomas Marcone' : currentElement.idDocente === 4 ? 'Juan Mas' : 'Desconocido'}}
         </div>
-
-       
-
+   
     <button type="button" class="btn btn-success" (click)="updateElement()" >Actualizar Curso</button>
 
-
-    <!--<button class="btn btn-danger" type="button" (click)="deleteElement()">Eliminar Curso</button>-->
     <button type="button" class="btn btn-success" (click)="cancelUpdate()" > Volver Atrás </button>
 
     <p class="success-message">{{ message }}</p>
@@ -115,5 +118,13 @@
     <br />
     <p>Elemento no encontrado...</p>
   </div>
+  
+	    <!-- Alerta de éxito -->
+	<div *ngIf="updateSuccessMessageVisible" class="alert alert-success d-flex align-items-center" role="alert" style="width: 50%; margin: 10px auto; padding: 10px; border-radius: 15px; box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);">
+	  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" style="width: 30px; height: 30px;"><use xlink:href="#check-circle-fill"/></svg>
+	  <div style="font-size: 20px;">
+	    El curso fue actualizado correctamente.
+	  </div>
+	</div>
   
 </ng-template>

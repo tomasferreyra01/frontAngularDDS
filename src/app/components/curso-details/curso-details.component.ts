@@ -40,7 +40,7 @@ export class CursoDetailsComponent implements OnInit {
 	  this.cursoForm = this.formBuilder.group({
       nombre: ['', Validators.required],
       tema: [null, Validators.required],
-      fechaInicio: [new Date(), [Validators.required]],
+      fechaInicio: [null, [Validators.required]],
       idDocente: [1, Validators.required],
     }); 
 	 } 
@@ -53,6 +53,9 @@ export class CursoDetailsComponent implements OnInit {
     if (!this.viewMode) {
       this.message = '';
       this.getElement(this.route.snapshot.params["id"]);
+      if (this.currentElement.tema) {
+      this.asignarTemaId(this.currentElement.tema.id);
+    }
     }
   }
   
@@ -65,23 +68,31 @@ export class CursoDetailsComponent implements OnInit {
   
   
    retrieveMaterialesPorCurso(): void {
-	this.materialService.obtenerMaterialesPorIdCurso(this.selectedTemaId)
-      .subscribe({
-        next: (data) => {
-          this.materialesTema = data;
-          console.log(this.materialesTema);
-          console.log("Materiales:", this.materialesTema); },
-        error: (e) => console.error("Materiales error")
-      });  };
+	 if (this.selectedTemaId) {
+      this.materialService.obtenerMaterialesPorIdCurso(this.selectedTemaId)
+        .subscribe({
+          next: (data) => {
+            this.materialesTema = data;
+            console.log('Materiales:', this.materialesTema);
+          },
+          error: (e) => console.error('Materiales error', e)
+        });
+    } else {
+      this.materialesTema = [];  // Si no hay tema seleccionado, vacía la lista de materiales
+    }
+  }
  
  	private previousTemaId: any;
-	  asignarTemaId(idTema : any) {
+ 	
+	
+ asignarTemaId(idTema : any) {
 	 if (idTema !== this.previousTemaId) { 
 	  this.selectedTemaId = idTema 
 	  this.retrieveMaterialesPorCurso()
 	  this.previousTemaId = idTema;
 	  }
 	 }
+	
  
   getElement(id: string): void {
     this.cursoService.get(id)
@@ -95,32 +106,28 @@ export class CursoDetailsComponent implements OnInit {
   }
   
   updateElement(): void {
-	
-    this.message = '';
-    
 	this.cursoService.update(this.currentElement.id, this.currentElement)
 	    .subscribe({
         next: (res) => {
           console.log(res);
-          this.message = res.message ? res.message : 'El curso fue actualizado, redirigiendo al listado de cursos...';
+        
           this.showSuccessMessage();
           setTimeout(() => {
           this.router.navigate(['/cursos']);}, 2000);},
         error: (e) => console.error(e)
       });
-     }  
+     }    
      
    showSuccessMessage(): void {
   this.updateSuccessMessageVisible = true;
-
- 
+  
 	setTimeout(() => {
 	    this.updateSuccessMessageVisible = false;
 	  }, 3000);
 	}
 
 	cancelUpdate(): void {
-	  this.router.navigate(['/cursos']); // Redirige a la lista de cursos
+	  this.router.navigate(['/cursos']);
 	}
 
   deleteElement(): void {
@@ -139,5 +146,6 @@ export class CursoDetailsComponent implements OnInit {
   this.currentElement = course;
   this.viewMode = true; 
 } 
+
  
 }

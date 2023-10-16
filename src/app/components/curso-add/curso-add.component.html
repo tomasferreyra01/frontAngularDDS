@@ -36,28 +36,31 @@
           name="fechaInicio"
           placeholder="dd/mm/yyyy"
           pattern="\d{2}/\d{2}/\d{4}"
+          #fechaInput="ngModel"
         />
-        <div *ngIf="dateError" class="text-danger">La fecha de inicio debe ser mayor a la actual</div>
+        <div *ngIf="!curso.fechaInicio" class="text-danger">La fecha de inicio es un campo obligatorio.</div>
       </div>
       
       <div class="form-group">
-      	<label for="docente">Docente Asignado</label>
-      		<select class="form-control" id="docente" required [(ngModel)]="curso.idDocente">
-      	<option value="0">Seleccione un docente</option>
-      	<option value="1">Claudia Chavez</option>
-      	<option value="2">Pedro Benedetto</option>
-      	<option value="3">Tomas Marc	one</option>
-      	<option value="4">Juan Mas</option> </select>
-      <p>ID del profesor seleccionado: {{ curso.idDocente }}</p>
-      </div>
+		  <label for="docente">Docente Asignado</label>
+		  <select class="form-control" id="docente" required [(ngModel)]="curso.idDocente" #docenteSelect="ngModel">
+		    <option value="0">Seleccione un docente</option>
+		    <option value="1">Claudia Chavez</option>
+		    <option value="2">Pedro Benedetto</option>
+		    <option value="3">Tomas Marcone</option>
+		    <option value="4">Juan Mas</option> 
+		  </select>
+		  <div *ngIf="curso.idDocente === 0 && docenteSelect.touched" class="text-danger">Debe seleccionar un docente.</div>
+	  </div>
 
       <div class="form-group">
-        <label for="tema">Tema</label>
-        <select class="form-control"  [(ngModel)]="selectedTemaId" (ngModelChange)="retrieveMaterialesPorCurso()">
-        <option value="0">Selecciona un tema</option>
-        <option *ngFor="let tema of temas" [value]="tema.id" >{{ tema.nombre }}</option>
-        </select>
-      </div>
+	  <label for="tema">Tema</label>
+		  <select class="form-control" [(ngModel)]="selectedTemaId" #temaSelect="ngModel">
+		    <option value="0">Selecciona un tema</option>
+		    <option *ngFor="let tema of temas" [value]="tema.id">{{ tema.nombre }}</option>
+		  </select>
+	  <div *ngIf="selectedTemaId === 0 && temaSelect.touched" class="text-danger">Debe seleccionar un tema.</div>
+	   </div>
 
       <div class="form-group" *ngIf="selectedTemaId">
         <label for="material">Materiales del tema</label>
@@ -69,7 +72,7 @@
         </ul>
       </div>
 
-      <button [disabled]="!nombreInput.valid" (click)="saveCurso()" class="btn btn-success">Crear Curso</button>
+      <button [disabled]="!curso.nombre || !curso.fechaInicio || curso.idDocente === 0 || selectedTemaId === 0" (click)="saveCurso()" class="btn btn-success">Crear Curso</button>
     </div>
 
     <div *ngIf="submitted">
