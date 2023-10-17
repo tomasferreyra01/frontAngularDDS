@@ -4,7 +4,7 @@ import { Observable, throwError} from 'rxjs';
 import { Tema } from '../models/tema.model';
 import { catchError } from 'rxjs/operators';
 
-const baseUrl = 'http://localhost:4200/api/temas'
+const baseUrl = 'http://localhost:8080/temas'
 
 @Injectable({
   providedIn: 'root'

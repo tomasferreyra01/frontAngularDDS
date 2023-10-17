@@ -5,7 +5,7 @@ import { Alumno } from '../models/alumno.model';
 
 
 
-const baseUrl = 'http://localhost:4200/api/alumnos';
+const baseUrl = 'http://localhost:8080/alumnos';
 
 @Injectable({
   providedIn: 'root'

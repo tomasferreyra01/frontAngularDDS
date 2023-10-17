@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Curso } from '../models/curso.model';
 import { map } from 'rxjs/operators';
 
-const baseUrl = 'http://localhost:4200/api/cursos';
+const baseUrl = 'http://localhost:8080/cursos';
 
 @Injectable({
   providedIn: 'root'
