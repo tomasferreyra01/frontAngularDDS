@@ -9,7 +9,7 @@ import { Alumno } from 'src/app/models/alumno.model';
 })
 export class AlumnosAddComponent implements OnInit {
 	alumno: Alumno={
-		id: 0,
+		id: null,
 		nombre: '',
 		fechaNacimiento: new Date,
 	}

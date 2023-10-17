@@ -1,10 +1,9 @@
 <div class="container mt-5">
   <div class="row justify-content-center">
- 
-    
+
     <!-- Lista de Alumnos -->
     <div class="col-md-4">
-      <div class="alumnos-list">  
+      <div class="alumnos-list">
         <h4 class="text-center font-weight-bold mb-3">Listado de Alumnos</h4>
         <p class="text-center">Seleccione el alumno que desea ver sus detalles.</p>
         <ul class="list-group rounded">
@@ -14,18 +13,56 @@
             [class.active]="i === currentIndex"
             (click)="showDetails(alumno, i)"
           >
-     <img src="/assets/alumno.png" alt="Icono" class="icono"> [{{ alumno.id }}] - {{ alumno.nombre }}
+            <img src="/assets/alumno.png" alt="Icono" class="icono"> [{{ alumno.id }}] - {{ alumno.nombre }}
           </li>
         </ul>
       </div>
     </div>
 
-	    <div class="alumno-details rounded" *ngIf="showAlumnoDetails">
-	  <h2 class="titulo">Detalles del Alumno</h2>
-	  <p class="detalle"><strong>Nombre: </strong> <span>{{ currentElement.nombre }}</span></p>
-	  <p class="detalle"><strong>ID: </strong> <span>{{ currentElement.id }}</span></p>
-	  <p class="detalle"><strong>Fecha de Nacimiento: </strong> <span>{{ currentElement.fechaNacimiento }}</span></p>
+    <div class="col-md-8"> 
+      <div class="alumno-details rounded" *ngIf="showAlumnoDetails && !showEditForm">
+        <h2 class="titulo">Detalles del Alumno</h2>
+        <p class="detalle"><strong>Nombre: </strong> <span>{{ currentElement.nombre }}</span></p>
+        <p class="detalle"><strong>ID: </strong> <span>{{ currentElement.id }}</span></p>
+        <p class="detalle"><strong>Fecha de Nacimiento: </strong> <span>{{ currentElement.fechaNacimiento }}</span></p>
+        <div class="botones-accion">
+    <button class="btn btn-primary btn-editar-alumno" (click)="showEditForm = true">Editar Alumno</button>
+    <button class="btn btn-danger btn-eliminar-alumno" (click)="deleteAlumno(currentElement.id)">Eliminar Alumno</button>
+  </div>
+      </div>
+
+	  <div class="editar-alumno rounded" *ngIf="showEditForm">
+	  <h4 class="text-center font-weight-bold mb-3">Editar Alumno</h4>
+	  <form>
+	    <div class="form-group">
+	      <label for="nombre">Nombre</label>
+	      <input type="text" class="form-control" id="nombre" [(ngModel)]="currentElement.nombre" name="nombre">
+	      <div *ngIf="!currentElement.nombre" class="error-message">Por favor ingrese un nombre.</div>
+	    </div>
+	    <div class="form-group">
+	      <label for="id">ID</label>
+	      <input type="text" class="form-control" id="id" [(ngModel)]="currentElement.id" name="id" disabled>
+	    </div>
+	    <div class="form-group">
+	      <label for="fechaNacimiento">Fecha de Nacimiento</label>
+	      <input type="date" class="form-control" id="fechaNacimiento" [(ngModel)]="currentElement.fechaNacimiento" name="fechaNacimiento">
+	      <div *ngIf="!currentElement.fechaNacimiento" class="error-message">Por favor ingrese una fecha de nacimiento.</div>
+	    </div>
+	    <button type="button" class="btn btn-primary btn-editar-alumno" [disabled]="!currentElement.nombre || !currentElement.fechaNacimiento" (click)="updateElement()">Guardar Cambios</button>
+	  </form>
 	</div>
+		 <!-- Alerta de éxito para alumno -->
+	<div *ngIf="updateSuccessMessageVisible" class="alert alert-success d-flex align-items-center" role="alert" style="width: 70%; margin: 10px auto; padding: 10px; border-radius: 15px; box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);">
+	  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" style="width: 30px; height: 30px;"><use xlink:href="#check-circle-fill"/></svg>
+	  <div style="font-size: 20px;">
+	    El alumno fue actualizado correctamente.
+	  </div>
+</div>
+
+
+    </div>
 
 
 
+  </div>
+</div>

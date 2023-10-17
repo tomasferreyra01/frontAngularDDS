@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError} from 'rxjs';
 import { Tema } from '../models/tema.model';
+import { catchError } from 'rxjs/operators';
 
 const baseUrl = 'http://localhost:4200/api/temas'
 
@@ -36,8 +37,19 @@ export class TemaService {
 	};
     return this.http.put(`${baseUrl}`, bodyData, {responseType: 'text'});
   }
-  delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/delete/${id}`, {responseType: 'text'});
+ 
+   delete(id: any): Observable<any> {
+    return this.http.delete(`${baseUrl}/${id}`, { responseType: 'text' })
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 500) {
+            if (error.error.includes('foreign key constraint fails')) {
+              return throwError('No se puede eliminar el tema porque está siendo referenciado en otras tablas.');
+            }
+          }
+          return throwError('Ocurrió un error al intentar eliminar el tema.');
+        })
+      );
   }
   deleteAll(): Observable<any> {
     return this.http.delete(baseUrl);

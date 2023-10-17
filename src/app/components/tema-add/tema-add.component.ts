@@ -63,5 +63,6 @@ export class TemaAddComponent implements OnInit {
   isFormValid() {
     return this.tema.nombre && this.tema.duracion && this.tema.id;
   }
+  
  
 }

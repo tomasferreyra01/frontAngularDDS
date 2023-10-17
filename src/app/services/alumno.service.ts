@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Alumno } from '../models/alumno.model';
 
 
+
 const baseUrl = 'http://localhost:4200/api/alumnos';
 
 @Injectable({
@@ -36,8 +37,9 @@ export class AlumnoService {
     return this.http.put(`${baseUrl}`, bodyData, {responseType: 'text'});
   }
   delete(id: any): Observable<any> {
-    return this.http.delete(`${baseUrl}/delete/${id}`, {responseType: 'text'});
+    return this.http.delete(`${baseUrl}/${id}`, { responseType: 'text' })
   }
+  
   deleteAll(): Observable<any> {
     return this.http.delete(baseUrl);
   }

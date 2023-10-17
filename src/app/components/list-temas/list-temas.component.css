@@ -49,16 +49,19 @@
   margin-top: 20px;
 }
 
-.temas-details {
-  width: 50%;
-  margin:auto;
+.temas-details, .editar-tema {
+  width: 90%; 
+  margin: 20px auto; 
   background-color: #f9f9f9;
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
-  padding: 20px;
+  padding: 10px;
   border-radius: 10px;
-  text-align: center; 
-  font-weight: bold; 
+  text-align: center;
+  font-weight: bold;
   border: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .temas-details p {
@@ -97,6 +100,36 @@
   width: 20px; 
   height: 20px; 
   margin-right: 10px; 
+}
+
+.error-message {
+  color: red;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn-eliminar-tema {
+  border-radius: 15px; 
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);  
+  border: 1px solid #000;
+  width: 60%;
+}
+
+.btn-editar-tema{
+  border-radius: 15px;
+  box-shadow: 0 0px 10px rgba(0, 0, 0, 0.5);  
+  border: 1px solid #000;
+  background-color: #620096;
+  width: 60%;
+  margin-right: 10px;
+}
+.btn-editar-tema, .btn-eliminar-tema {
+  padding: 5px 10px;
+}
+
+.botones-accion {
+  display: flex;
+  justify-content: space-between;
 }
 
 

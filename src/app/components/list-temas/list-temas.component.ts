@@ -12,6 +12,9 @@ export class ListTemasComponent implements OnInit {
   currentElement: Tema = {};
   currentIndex = -1;
   title = '';
+  errorMessage: string = '';
+  showEditForm = false;
+  updateSuccessMessageVisible = false;
 
   constructor(private temaService: TemaService) { }
 
@@ -45,6 +48,46 @@ export class ListTemasComponent implements OnInit {
     this.currentElement = element;
     this.currentIndex = index;
   }
+  
+     deleteTema(id: any): void {
+    this.temaService.delete(id)
+      .subscribe({
+        next: () => {
+          console.log('Tema eliminado correctamente.');
+          this.retrieveTemas();
+          this.errorMessage = '';  // Limpiar el mensaje de error en caso de éxito
+        },
+        error: (e) => {
+          console.error('Error al eliminar el tema:', e);
+          if (e === 'No se puede eliminar el tema porque está siendo referenciado en otras tablas.') {
+            this.errorMessage = 'No se puede eliminar el tema porque está siendo referenciado en otras tablas.';
+          } else {
+            this.errorMessage = 'No se puede eliminar este tema porque está siendo utilizado en otros registros.';
+          }
+        }
+      });
+  }
+  
+  updateElement(): void {
+  this.temaService.update(this.currentElement.id, this.currentElement)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.showSuccessMessage();
+        this.showEditForm = false;
+      },
+      error: (e) => console.error(e)
+    });
+}
+
+	showSuccessMessage(): void {
+	  this.updateSuccessMessageVisible = true;
+	
+	  setTimeout(() => {
+	    this.updateSuccessMessageVisible = false;
+	  }, 3000); 
+	}
+
   
 	
 }

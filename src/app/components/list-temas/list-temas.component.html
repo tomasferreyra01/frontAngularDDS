@@ -17,11 +17,54 @@
         </ul>
       </div>
     </div>
+    
+   <div class="col-md-8">
+    <div class="temas-details rounded" *ngIf="showTemasDetails && !showEditForm">
+  <h2 class="titulo">Detalles del Tema</h2>
+  <p class="detalle"><strong>Nombre: </strong> <span>{{ currentElement.nombre }}</span></p>
+  <p class="detalle"><strong>ID: </strong> <span>{{ currentElement.id }}</span></p>
+  <p class="detalle"><strong>Duración: </strong> <span>{{ currentElement.duracion }}</span></p>
+  	<div class="botones-accion">
+	    <button class="btn btn-primary btn-editar-tema" (click)="showEditForm = true">Editar Tema</button>
+		<button class="btn btn-danger btn-eliminar-tema" (click)="deleteTema(currentElement.id)">Eliminar Tema</button>  
+	</div>
+  
+	  <div *ngIf="errorMessage" class="error-message">
+	        {{ errorMessage }}
+	      </div>
+	</div>
+	
+	<div class="editar-tema rounded" *ngIf="showEditForm">
+	  <h4 class="text-center font-weight-bold mb-3">Editar Tema</h4>
+	  <form>
+	    <div class="form-group">
+	      <label for="nombre">Nombre</label>
+	      <input type="text" class="form-control" id="nombre" [(ngModel)]="currentElement.nombre" name="nombre">
+	      <div *ngIf="!currentElement.nombre" class="error-message">Por favor ingrese un nombre.</div>
+	    </div>
+	    <div class="form-group">
+	      <label for="id">ID</label>
+	      <input type="text" class="form-control" id="id" [(ngModel)]="currentElement.id" name="id" disabled>
+	    </div>
+	    <div class="form-group">
+	      <label for="duracion">Duración</label>
+	      <input type="text" class="form-control" id="fechaNacimiento" [(ngModel)]="currentElement.duracion" name="duracion">
+	      <div *ngIf="!currentElement.duracion" class="error-message">Por favor ingrese una duración.</div>
+	    </div>
+	    <button type="button" class="btn btn-primary btn-editar-tema" [disabled]="!currentElement.nombre || !currentElement.duracion" (click)="updateElement()">Guardar Cambios</button>
+	  </form>
+	</div>
+		 <!-- Alerta de éxito para tema -->
+	<div *ngIf="updateSuccessMessageVisible" class="alert alert-success d-flex align-items-center" role="alert" style="width: 70%; margin: 10px auto; padding: 10px; border-radius: 15px; box-shadow: 0px 5px 10px 0px rgba(0,0,0,0.5);">
+	  <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" style="width: 30px; height: 30px;"><use xlink:href="#check-circle-fill"/></svg>
+	  <div style="font-size: 20px;">
+	    El tema fue actualizado correctamente.
+	  </div>
+	
+	
+	
+	
+	
+</div>
 
-    <div class="temas-details rounded" *ngIf="showTemasDetails">
-      <h2 class="titulo">Detalles del Tema</h2>
-      <p class="detalle"><strong>Nombre: </strong> <span>{{ currentElement.nombre }}</span></p>
-      <p class="detalle"><strong>ID: </strong> <span>{{ currentElement.id }}</span></p>
-      <p class="detalle"><strong>Duración: </strong> <span>{{ currentElement.duracion }}</span></p>
-    </div>
 </div>

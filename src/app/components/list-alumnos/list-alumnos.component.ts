@@ -13,6 +13,10 @@ export class ListAlumnosComponent implements OnInit {
   currentIndex = -1;
   title = '';
   
+  message = '';
+  showEditForm = false;
+  updateSuccessMessageVisible = false;
+  
   constructor(private alumnoService: AlumnoService) { }
   ngOnInit(): void {
     this.retrieveAlumnos();
@@ -22,7 +26,8 @@ export class ListAlumnosComponent implements OnInit {
   
   showDetails(alumno: Alumno, index: number): void {
   this.setActiveElement(alumno, index);
-  this.showAlumnoDetails = true;  // Mostrar detalles al hacer clic en un alumno
+  this.showAlumnoDetails = true;
+  this.showEditForm = false;  
 }
   retrieveAlumnos(): void {
     this.alumnoService.getAll()
@@ -43,14 +48,40 @@ export class ListAlumnosComponent implements OnInit {
     this.currentElement = element;
     this.currentIndex = index;
   }
-  removeAllElements(): void {
-    this.alumnoService.deleteAll()
+ 
+   deleteAlumno(id: any): void {
+    this.alumnoService.delete(id)
       .subscribe({
-        next: (res) => {
-          console.log(res);
-          this.refreshList();
+        next: () => {
+          console.log('Alumno eliminado correctamente.');
+          this.retrieveAlumnos();
         },
-        error: (e) => console.error(e)
+        error: (e) => console.error('Error al eliminar el alumno:', e)
       });
   }
+  
+ updateElement(): void {
+  this.alumnoService.update(this.currentElement.id, this.currentElement)
+    .subscribe({
+      next: (res) => {
+        console.log(res);
+        this.showSuccessMessage();
+        this.showEditForm = false;
+      },
+      error: (e) => console.error(e)
+    });
 }
+
+showSuccessMessage(): void {
+  this.updateSuccessMessageVisible = true;
+
+  setTimeout(() => {
+    this.updateSuccessMessageVisible = false;
+  }, 3000); 
+}
+
+
+}
+  
+  
+
